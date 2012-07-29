@@ -1,0 +1,3 @@
+[submodule "SteamWebAPI"]
+	path = SteamWebAPI
+	url = git://github.com/Overv/SteamWebAPI.git
