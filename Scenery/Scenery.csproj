@@ -61,6 +61,9 @@
     <Compile Include="SteamLoginWindow.xaml.cs">
       <DependentUpon>SteamLoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dota2.xaml.cs">
+      <DependentUpon>Dota2.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SteamLoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dota2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

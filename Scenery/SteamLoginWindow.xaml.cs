@@ -58,6 +58,8 @@ namespace Scenery
                     response.Text = "You have " + (friends.Count - blockedFriends) + " friends and " + blockedFriends + " fiends!";
 
                     this.Hide();
+                    Dota2 dota2 = new Dota2();
+                    dota2.Show();
                 }
                 else
                 {
