@@ -32,34 +32,41 @@ namespace Scenery
             SteamAPISession api = new SteamAPISession();
             SteamAPISession.LoginStatus status;
 
-            //Lets see if they gave the code already or not
-            if (!String.IsNullOrEmpty(code))
+            try
             {
-                status = api.Authenticate(name, pw, code);
-            }
-            else
-            {
-                status = api.Authenticate(name, pw);
-            }
+                //Lets see if they gave the code already or not
+                if (!String.IsNullOrEmpty(code))
+                {
+                    status = api.Authenticate(name, pw, code);
+                }
+                else
+                {
+                    status = api.Authenticate(name, pw);
+                }
 
-            if (status == SteamAPISession.LoginStatus.SteamGuard)
-            {
-                response.Text = "Steamguard is setup. Please check your email and enter the Steamguard code. ";
-                steamguard.Visibility = Visibility.Visible;
-                steamguard_label.Visibility = Visibility.Visible;
-            }
+                if (status == SteamAPISession.LoginStatus.SteamGuard)
+                {
+                    response.Text = "Steamguard is setup. Please check your email and enter the Steamguard code. ";
+                    steamguard.Visibility = Visibility.Visible;
+                    steamguard_label.Visibility = Visibility.Visible;
+                }
 
-            if (status == SteamAPISession.LoginStatus.LoginSuccessful)
-            {
-                List<SteamAPISession.Friend> friends = api.GetFriends();
-                int blockedFriends = friends.Count(f => f.blocked == true);
-                response.Text = "You have " + (friends.Count - blockedFriends) + " friends and " + blockedFriends + " fiends!";
+                if (status == SteamAPISession.LoginStatus.LoginSuccessful)
+                {
+                    List<SteamAPISession.Friend> friends = api.GetFriends();
+                    int blockedFriends = friends.Count(f => f.blocked == true);
+                    response.Text = "You have " + (friends.Count - blockedFriends) + " friends and " + blockedFriends + " fiends!";
 
-                this.Hide();
+                    this.Hide();
+                }
+                else
+                {
+                    response.Text += "Failed to log in!";
+                }
             }
-            else
+            catch (Exception)
             {
-                response.Text += "Failed to log in!";
+                response.Text = "Failed to log in!";
             }
 
         }
