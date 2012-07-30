@@ -30,7 +30,7 @@ namespace Scenery
         private void AuthClick(object sender, RoutedEventArgs e)
         {
             String name = username.Text;
-            String pw = password.Text;
+            String pw = password.Password;
             String code = steamguard.Text;
             SteamAPISession api = new SteamAPISession();
             SteamAPISession.LoginStatus status;
@@ -47,7 +47,7 @@ namespace Scenery
 
             if (status == SteamAPISession.LoginStatus.SteamGuard)
             {
-                response.Text = "Please Enter Steamguard Code. ";
+                response.Text = "Steamguard is setup. Please check your email and enter the Steamguard code. ";
                 steamguard.Visibility = Visibility.Visible;
             }
 
