@@ -33,17 +33,20 @@ namespace Scenery
             SteamAPISession.LoginStatus status;
 
             try
-            {
+            {   
+                
+
                 //Lets see if they gave the code already or not
-                if (!String.IsNullOrEmpty(code))
-                {
-                    status = api.Authenticate(name, pw, code);
-                }
-                else
+                if (String.IsNullOrEmpty(code))
                 {
                     status = api.Authenticate(name, pw);
                 }
+                else
+                {
+                    status = api.Authenticate(name, pw, code);
+                }
 
+                //We realized they have a steamguard id and we need that to continue authenticating
                 if (status == SteamAPISession.LoginStatus.SteamGuard)
                 {
                     response.Text = "Steamguard is setup. Please check your email and enter the Steamguard code. ";
@@ -51,15 +54,16 @@ namespace Scenery
                     steamguard_label.Visibility = Visibility.Visible;
                 }
 
+                //The login was successful. Pass the reference to api along to the main app
                 if (status == SteamAPISession.LoginStatus.LoginSuccessful)
                 {
-                    List<SteamAPISession.Friend> friends = api.GetFriends();
-                    int blockedFriends = friends.Count(f => f.blocked == true);
-                    response.Text = "You have " + (friends.Count - blockedFriends) + " friends and " + blockedFriends + " fiends!";
+                    //List<SteamAPISession.Friend> friends = api.GetFriends();
 
                     this.Hide();
-                    Dota2 dota2 = new Dota2();
-                    dota2.Show();
+                    string game = "Dota 2";
+                    MainApplication app = new MainApplication(game, api);
+                    app.Show();
+
                 }
                 else
                 {

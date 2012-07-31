@@ -66,7 +66,7 @@
         <Button Style="{DynamicResource NoChromeButton}"
                 Click="ButtonClicked"
                 Margin="44,181,641,59">
-            <Image Source="images/dota2.png"
+            <Image Source="\images\dota2.png"
                    Stretch="Fill" 
                    Margin="0"
                    Height="200"
