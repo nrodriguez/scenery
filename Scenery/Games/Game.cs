@@ -1,34 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Scenery.Games
 {
     public class Game
     {
-        protected string Name;
-        
-        public string name
-        {
-            get { return this.Name; }
-            set { Name = value; }
-        }
+        public virtual string Name { get; set; }
+
+        public virtual string ApplicationName { get; set; }
 
         public Game()
         {
-            Name = "Game";
+            //Name = "Game";
+            //ApplicationName = "Game.exe";
         }
 
-        public Game(string name)
+        public string CheckGameStatus()
         {
-            this.Name = name;
+            return IsProcessOpen(this.ApplicationName) ? "Running" : "Not Running";
         }
 
-        public bool CheckGameStatus()
+        public virtual bool IsInGame()
         {
             return true;
         }
 
+        private bool IsProcessOpen(string appName)
+        {
+            Process[] pname = Process.GetProcessesByName(appName);
+            return pname.Length != 0;
+        }
     }
 }

@@ -55,24 +55,23 @@
                VerticalAlignment="Top"
                Width="237"
                FontSize="56"
-               FontWeight="Bold"/>
+               FontWeight="Bold" />
         <Label Content="Choose your game"
                Height="66"
                Margin="240,117,344,0"
                Name="ChooseYourGame"
                VerticalAlignment="Top"
                FontSize="32"
-               FontWeight="Bold"/>
+               FontWeight="Bold" />
         <Button Style="{DynamicResource NoChromeButton}"
                 Click="ButtonClicked"
                 Margin="44,181,641,59">
-            <Image Source="\images\dota2.png"
-                   Stretch="Fill" 
+            <Image Source="/images/dota2.png"
+                   Stretch="Fill"
                    Margin="0"
                    Height="200"
-                   Width="216"
-                   />
+                   Width="216" />
         </Button>
-        
+
     </Grid>
 </Window>

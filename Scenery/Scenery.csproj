@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RegistryMonitor.cs" />
+    <Compile Include="Games\XSplit.cs" />
     <Compile Include="Games\Dota2.cs" />
     <Compile Include="Games\Game.cs" />
     <Compile Include="Application Front Ends\SteamLoginWindow.xaml.cs">
@@ -113,13 +115,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\dota2.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SteamWebAPI\SteamWebAPI.csproj">
       <Project>{D846D108-D95B-4488-BA01-E487DA220C17}</Project>
       <Name>SteamWebAPI</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\dota2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
