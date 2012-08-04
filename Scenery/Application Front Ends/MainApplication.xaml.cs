@@ -26,6 +26,7 @@ namespace Scenery
         {
             InitializeComponent();
             game = GetGame(GameName);
+            Game.ValueChangedArgs.ValueChanged += WhenValueChanged;
         }
 
         private Game GetGame(string GameName)
@@ -57,6 +58,29 @@ namespace Scenery
             XsplitStatus.Content = "Not Checking Status";
             RunApplication.IsEnabled = true;
             StopApplication.IsEnabled = false;
+        }
+
+        public void WhenValueChanged(object sender, Game.ValueChangedArgs args)
+        {
+            if (InGameStatus.Dispatcher.CheckAccess())
+            {
+                //Update the UI or something when the value changes
+                InGameStatus.Content = game.IsInGame ? "Yes" : "No";
+            }
+            else
+            {
+                // This thread does not have access to the UI thread.
+                // Call the update thread via a Dispatcher.BeginInvoke() call.
+                InGameStatus.Dispatcher.BeginInvoke(
+                System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                        delegate()
+                        {
+                            InGameStatus.Content = game.IsInGame ? "Yes" : "No";
+                        }
+                    )
+                );
+            }
         }
 
 

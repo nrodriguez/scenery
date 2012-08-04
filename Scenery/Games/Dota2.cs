@@ -12,8 +12,9 @@ namespace Scenery.Games
     {
         public override string Name { get; set; }
         public override string ApplicationName { get; set; }
+        public override bool IsInGame { get; set; }
 
-        RegistryMonitor monitor = new RegistryMonitor(RegistryHive.CurrentUser, "Software/Valve/Steam/LastGameNameUsed");
+        RegistryMonitor monitor = new RegistryMonitor(RegistryHive.CurrentUser, "Software");
 
         public Dota2()
             : base()
@@ -22,18 +23,24 @@ namespace Scenery.Games
             this.ApplicationName = "dota";
         }
 
-        public override bool IsInGame()
+        public override void StartInGameCheck()
         {
-            //monitor.RegChanged += new EventHandler(bool OnRegChanged);
-            //monitor.Start();
-            //return monitor.RegChanged;
-            return true;
+            monitor.RegChanged += new EventHandler(OnRegChanged);
+            monitor.Start();
         }
 
-        private bool OnRegChanged(object sender, EventArgs e)
+        public override void EndInGameCheck()
         {
-            //monitor.Stop();
-            return true;
+            monitor.Stop();
+            IsInGame = false;
         }
+
+        public void OnRegChanged(object sender, EventArgs e)
+        {
+            IsInGame = true;
+            var vca = new ValueChangedArgs();
+            vca.OnValueChanged(new ValueChangedArgs { OldValue = 1, NewValue = 2 });
+        }
+
     }
 }
