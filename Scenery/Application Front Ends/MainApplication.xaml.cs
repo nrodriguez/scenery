@@ -49,6 +49,7 @@ namespace Scenery
             XsplitStatus.Content = xsplit.CheckGameStatus();
             RunApplication.IsEnabled = false;
             StopApplication.IsEnabled = true;
+            game.StartInGameCheck();
         }
 
         private void StopApplicationClick(object sender, RoutedEventArgs e)
@@ -58,6 +59,7 @@ namespace Scenery
             XsplitStatus.Content = "Not Checking Status";
             RunApplication.IsEnabled = true;
             StopApplication.IsEnabled = false;
+            game.EndInGameCheck();
         }
 
         public void WhenValueChanged(object sender, Game.ValueChangedArgs args)
