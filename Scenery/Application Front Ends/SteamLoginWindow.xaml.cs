@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -31,11 +32,22 @@ namespace Scenery
             String code = steamguard.Text;
             SteamAPISession api = new SteamAPISession();
             SteamAPISession.LoginStatus status;
+            SteamWeb web = new SteamWeb();
 
             try
-            {   
-                
+            {
+                //Temporary Auto Login Code
+                //TODO: Remove this
+                String[] loginInfo = GetLoginInfo();
+                if (name == "")
+                {
+                    name = loginInfo[0];
+                    pw = loginInfo[1];
+                    code = loginInfo[2];
+                }
 
+
+                SteamWeb.DoLogin(name, pw);
                 //Lets see if they gave the code already or not
                 if (String.IsNullOrEmpty(code))
                 {
@@ -70,11 +82,29 @@ namespace Scenery
                     response.Text += "Failed to log in!";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                response.Text = "Failed to log in!";
+                response.Text = "Failed to log in! " + ex.Message;
             }
 
+        }
+
+        //A function solely created for testing without exposing private information
+        private String[] GetLoginInfo()
+        {
+            string FILE_NAME = "..\\..\\login_info.txt";
+            List<String> login_info = new List<string>();
+            using (StreamReader sr = File.OpenText(FILE_NAME))
+            {
+                String input;
+                
+                while ((input = sr.ReadLine()) != null)
+                {
+                    login_info.Add(input);
+                }
+            }
+
+            return login_info.ToArray();
         }
     }
 }

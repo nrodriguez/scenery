@@ -4,6 +4,6 @@ obj
 *.suo
 _Resharper.Scenery
 *.user
-
+login_info.txt
 # mstest test results
 TestResults

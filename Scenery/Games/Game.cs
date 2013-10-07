@@ -21,7 +21,7 @@ namespace Scenery.Games
             //ApplicationName = "Game.exe";
         }
 
-        public string CheckGameStatus()
+        public virtual string CheckGameStatus()
         {
             return IsProcessOpen(this.ApplicationName) ? "Running" : "Not Running";
         }

@@ -5,6 +5,9 @@ using System.Text;
 using Microsoft.Win32;
 using SteamWebAPI;
 using RegistryUtils;
+using Read64bitRegistryFrom32bitApp;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Scenery.Games
 {
@@ -13,8 +16,7 @@ namespace Scenery.Games
         public override string Name { get; set; }
         public override string ApplicationName { get; set; }
         public override bool IsInGame { get; set; }
-
-        RegistryMonitor monitor = new RegistryMonitor(RegistryHive.CurrentUser, "Software");
+        RegistryMonitor monitor = new RegistryMonitor(RegistryHive.CurrentUser, "Software\\Valve\\Steam\\LastGameNameUsed");
 
         public Dota2()
             : base()
@@ -25,6 +27,12 @@ namespace Scenery.Games
 
         public override void StartInGameCheck()
         {
+            RegistryKey localKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.CurrentUser, RegistryView.Registry64);
+            localKey = localKey.OpenSubKey(@"SOFTWARE\Software\Valve\Steam");
+
+            NetReceiver receiver = new NetReceiver(27005);
+            receiver.UDPListen();
+
             monitor.RegChanged += new EventHandler(OnRegChanged);
             monitor.Start();
         }

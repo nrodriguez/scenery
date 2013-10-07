@@ -49,6 +49,8 @@ namespace Scenery
             XsplitStatus.Content = xsplit.CheckGameStatus();
             RunApplication.IsEnabled = false;
             StopApplication.IsEnabled = true;
+            //xsplit.GetCurrentScene();
+            xsplit.GetAllScenes();
             game.StartInGameCheck();
         }
 

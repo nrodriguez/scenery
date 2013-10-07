@@ -29,8 +29,11 @@ namespace Scenery
         private void ButtonClicked(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            SteamLoginWindow login = new SteamLoginWindow();
-            login.Show();
+            //SteamLoginWindow login = new SteamLoginWindow();
+            //login.Show();
+            string game = "Dota 2";
+            MainApplication app = new MainApplication(game, null);
+            app.Show();
         }
 
     }
